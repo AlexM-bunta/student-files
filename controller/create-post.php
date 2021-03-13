@@ -24,16 +24,16 @@
 
       // Insert into DB
       if ($post->insertIntoDB($conn)){
-        header("Location: http://localhost:5000/views/home.php?username=" . $arr['author'] . "&postCreated=success");
+        header("Location: ../views/home.php?username=" . $arr['author'] . "&postCreated=success");
       }
       else {
-        header("Location: http://localhost:5000/views/home.php?username=" . $arr['author'] . "&postCreated=failed");
+        header("Location: ../views/home.php?username=" . $arr['author'] . "&postCreated=failed");
       }
 
     }
 
     else {
-      header("Location: http://localhost:5000/views/home.php?username=" . $arr['author'] . "&errors=titleorbody");
+      header("Location: ../views/home.php?username=" . $arr['author'] . "&errors=titleorbody");
     }
 
   }

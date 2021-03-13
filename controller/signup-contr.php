@@ -30,7 +30,7 @@
       $user = new User($arr['username'], $arr['password'], $arr['email'], $arr['first_name'], $arr['last_name']);
       if($user->insertIntoDB($conn)){
         // User was inserted successfuly. Redirect to login
-        header("Location: http://localhost:5000/views/login.php");
+        header("Location: ../views/login.php");
       }
     }
     else {

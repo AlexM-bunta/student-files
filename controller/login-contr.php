@@ -24,10 +24,10 @@
 
       if ($user->checkUserInDB($conn)){
         // Redirect
-        header("Location: http://localhost:5000/views/home.php?username=" . $user->getUsername());
+        header("Location: ../views/home.php?username=" . $user->getUsername());
       }
       else {
-        header("Location: http://localhost:5000/views/login.php?error=usernotfound");
+        header("Location: ../views/login.php?error=usernotfound");
       }
     }
     else {
@@ -39,7 +39,7 @@
       }
 
       // Refresh page with errors
-      header("Location: http://localhost:5000/views/login.php?error=" . $errURL);
+      header("Location: ../views/login.php?error=" . $errURL);
     }
 
   }
