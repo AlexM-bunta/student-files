@@ -6,8 +6,7 @@
     private $author;
     private $body;
     private $id;
-
-    private $time_created;
+    private $time;
 
     public function __construct($title, $author, $body, $id = null){
       $this->title = $title;
@@ -18,7 +17,7 @@
 
     public function insertIntoDB($conn){
 
-      $time = date("h:i:s-d:m:y");
+      $this->time = date("h:i:s-d:m:y");
       $query = 'INSERT INTO posts SET
         title=:title,
         author=:author,
@@ -32,16 +31,15 @@
       $this->title = htmlspecialchars(strip_tags($this->title));
       $this->author = htmlspecialchars(strip_tags($this->author));
       $this->body = htmlspecialchars(strip_tags($this->body));
-      $time = htmlspecialchars(strip_tags($time));
+      $this->time = htmlspecialchars(strip_tags($this->time));
 
       // Bind data
       $stmt->bindParam(':title', $this->title);
       $stmt->bindParam(':author', $this->author);
       $stmt->bindParam(':body', $this->body);
-      $stmt->bindParam(':time_created', $time);
+      $stmt->bindParam(':time_created', $this->time);
 
       if ($stmt->execute()){
-        $this->time_created = $time;
         return true;
       }
 
@@ -61,7 +59,12 @@
       return $this->body;
     }
     public function getDate(){
-      return $this->time_created;
+      return $this->time;
+    }
+
+    // Setters
+    public function setDate($date){
+      $this->time = $date;
     }
 
   }
