@@ -12,5 +12,4 @@ It can also be used by other people with their respective accounts.
 ```
 sudo php -S localhost:5000
 ```
-**note: port 5000 specifically**
 5. In your browser, go to URL **localhost:5000/views/login.php**
