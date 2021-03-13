@@ -2,7 +2,7 @@
   include_once '../includes/header.php';
 
   if (empty($_SESSION['pages']['prev']) or $_SESSION['pages']['prev'] === 'No prev page'){
-    header("Location: http://localhost:5000/views/login.php");
+    header("Location: ./login.php");
   }
 ?>
 
