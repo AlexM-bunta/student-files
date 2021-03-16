@@ -1,16 +1,20 @@
 <?php
   session_start();
-  $_SESSION['username'] = $_GET['username'];
+
+  // Prevent any further XSS by bypassing $_GET superglobal
+  if (isset($_GET['username']) && !isset($_SESSION['username'])){
+    header("Location: ../views/login.php");
+  }
 
   // Checking the last page accessed to prevent XSS
-  if (!empty($_SESSION['pages']['prev']) or $_SESSION['pages']['prev'] !== 'No prev page'){
-    $_SESSION['pages']['prev'] = $_SESSION['pages']['current'];
-  }
-  else {
-    $_SESSION['pages']['prev'] = 'No prev page';
-  }
-
-  $_SESSION['pages']['current'] = $_SERVER['REQUEST_URI'];
+  // if (!empty($_SESSION['pages']['prev']) or $_SESSION['pages']['prev'] !== 'No prev page'){
+  //   $_SESSION['pages']['prev'] = $_SESSION['pages']['current'];
+  // }
+  // else {
+  //   $_SESSION['pages']['prev'] = 'No prev page';
+  // }
+  //
+  // $_SESSION['pages']['current'] = $_SERVER['REQUEST_URI'];
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +30,7 @@
       <ul>
         <?php
           if (isset($_SESSION['username'])){
-            echo '<li><a href="../views/home.php?username=' . $_SESSION['username'] . '">Home</a></li>';
+            echo '<li><a href="../views/home.php">Home</a></li>';
             echo '<li><a href="../views/profile.php?username=' . $_SESSION['username'] . '">Profile</a></li>';
             echo '<li><a href="../controller/logout-contr.php">Log out</a></li>';
             echo '<li><a href="#about">About</a></li>';

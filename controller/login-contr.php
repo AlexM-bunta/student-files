@@ -23,8 +23,16 @@
       $user = new User($arr['username'], $arr['password'], '', '', '');
 
       if ($user->checkUserInDB($conn)){
+
+        // Session start -> set the username session variable
+        session_start();
+        $_SESSION['username'] = $user->getUsername();
+
+        // Create cookie
+        //setcookie($user->getUsername());
+
         // Redirect
-        header("Location: ../views/home.php?username=" . $user->getUsername());
+        header("Location: ../views/home.php");
       }
       else {
         header("Location: ../views/login.php?error=usernotfound");
@@ -32,14 +40,8 @@
     }
     else {
 
-      // Print errors
-      $errURL = "";
-      foreach($errors as $error){
-        $errURL = $errURL . '&' . $error;
-      }
-
       // Refresh page with errors
-      header("Location: ../views/login.php?error=" . $errURL);
+      header("Location: ../views/login.php?error=fieldnotvalid");
     }
 
   }

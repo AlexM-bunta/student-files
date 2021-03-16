@@ -1,9 +1,14 @@
 <?php
   include_once '../includes/header.php';
 
-  if (empty($_SESSION['pages']['prev']) or $_SESSION['pages']['prev'] === 'No prev page'){
+  if (!isset($_SESSION['username'])){
     header("Location: ./login.php");
   }
+
+  // If there is not prev page, redirect
+  // if (empty($_SESSION['pages']['prev']) or $_SESSION['pages']['prev'] === 'No prev page'){
+  //   header("Location: ./login.php");
+  // }
 ?>
 
 

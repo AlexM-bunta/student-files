@@ -93,7 +93,7 @@
         }
 
         if (!$result){
-          array_push($errors, $prop . ' field could not be validated');
+          array_push($errors, $prop);
         }
       }
 
