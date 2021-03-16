@@ -43,7 +43,7 @@
     return $arr;
   }
 
-  function getTimeBetween($curr, $prev){
+  function getTimeBetween($prev, $curr = date("h:i:s-d:m:y")){
     $curr = getDateAsArray($curr);
     $prev = getDateAsArray($prev);
 
@@ -74,10 +74,10 @@
   function show_post($post, $userSESSION){
 
     $viewuser = ($post->getAuthor() !== $userSESSION) ? '&viewuser=' . $post->getAuthor() : '';
-    $time = getTimeBetween(date("h:i:s-d:m:y"),$post->getDate());
+    $time = getTimeBetween($post->getDate());
 
     echo '<div>
-      <h3>' . $post->getTitle() . '</h3>
+      <h3><a href="./view_post?id=' . $post->getId() . '">' . $post->getTitle() . '</h3>
       <p></p>
       <p>by <a href="/views/profile.php?username=' . $userSESSION . $viewuser . '">' . $post->getAuthor() . '</a></p>
       <p>'.$time.'</p>

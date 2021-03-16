@@ -7,6 +7,7 @@
     private $body;
     private $id;
     private $time;
+    private $comment_section;
 
     public function __construct($title, $author, $body, $id = null){
       $this->title = $title;
@@ -31,7 +32,6 @@
       $this->title = htmlspecialchars(strip_tags($this->title));
       $this->author = htmlspecialchars(strip_tags($this->author));
       $this->body = htmlspecialchars(strip_tags($this->body));
-      $this->time = htmlspecialchars(strip_tags($this->time));
 
       // Bind data
       $stmt->bindParam(':title', $this->title);
@@ -40,6 +40,7 @@
       $stmt->bindParam(':time_created', $this->time);
 
       if ($stmt->execute()){
+        $this->id = $conn->lastInsertId();
         return true;
       }
 
@@ -61,10 +62,19 @@
     public function getDate(){
       return $this->time;
     }
+    public function getId(){
+      return $this->id;
+    }
+    public function getCommentSection(){
+      return $this->comment_section;
+    }
 
     // Setters
     public function setDate($date){
       $this->time = $date;
+    }
+    public function setCommentSection($comment_section){
+      $this->comment_section = $comment_section;
     }
 
   }

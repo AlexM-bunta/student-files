@@ -42,7 +42,7 @@
     }
 
     // Execute any query
-    public function execute_query($query) {
+    public function executeQuery($query) {
       $stmt = $this->conn->prepare($query);
 
       return $stmt->execute();
