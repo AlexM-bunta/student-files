@@ -54,8 +54,14 @@
       include_once '../includes/post_functions.php';
       $arr = get_arr_posts();
 
-      foreach($arr as $post){
-        show_post($post, $_SESSION['username']);
+      // To show from the first to the latest
+      // foreach($arr as $post){
+      //   show_post($post, $_SESSION['username']);
+      // }
+
+      // To show from the latest to the first
+      for($i = count($arr) - 1; $i >= 0; $i--){
+        show_post($arr[$i], $_SESSION['username']);
       }
     ?>
 

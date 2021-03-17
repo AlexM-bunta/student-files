@@ -2,30 +2,10 @@
 
   include_once '../models/database.php';
   include_once '../models/post.php';
+  include_once '../models/comment_section.php';
+  include_once '../models/comment.php';
 
-  function get_arr_posts(){
-
-    $database = new Database;
-    $conn = $database->connect();
-
-    $query = 'SELECT * FROM posts';
-
-    $stmt = $conn->prepare($query);
-
-    $arr_posts = array();
-
-    if ($stmt->execute()){
-      $row = $stmt->fetchAll();
-
-      foreach($row as $value){
-        $post = new Post($value['title'], $value['author'], $value['body'], $value['id']);
-        $post->setDate($value['date']);
-        array_push($arr_posts, $post);
-      }
-    }
-
-    return $arr_posts;
-  }
+  //---------------------------------------------------------------------------------------DATE FUNCTIONS
 
   function getDateAsArray($time){
     $time = explode('-', $time);
@@ -43,7 +23,7 @@
     return $arr;
   }
 
-  function getTimeBetween($prev, $curr = date("h:i:s-d:m:y")){
+  function getTimeBetween($prev, $curr){
     $curr = getDateAsArray($curr);
     $prev = getDateAsArray($prev);
 
@@ -71,17 +51,88 @@
 
   }
 
+  //---------------------------------------------------------------------------------------POST FUNCTIONS
+
   function show_post($post, $userSESSION){
 
     $viewuser = ($post->getAuthor() !== $userSESSION) ? '&viewuser=' . $post->getAuthor() : '';
-    $time = getTimeBetween($post->getDate());
+    $time = getTimeBetween($post->getDate(), date("h:i:s-d:m:y"));
 
     echo '<div>
-      <h3><a href="./view_post?id=' . $post->getId() . '">' . $post->getTitle() . '</h3>
-      <p></p>
+      <h3><a href="./view_post.php?id=' . $post->getId() . '">' . $post->getTitle() . '</h3>
       <p>by <a href="/views/profile.php?username=' . $userSESSION . $viewuser . '">' . $post->getAuthor() . '</a></p>
       <p>'.$time.'</p>
       <p>' . $post->getBody() . '</p>
     </div> <br />';
 
+  }
+
+  function get_arr_posts(){
+
+    $database = new Database;
+    $conn = $database->connect();
+
+    $query = 'SELECT * FROM posts';
+
+    $stmt = $conn->prepare($query);
+
+    $arr_posts = array();
+
+    if ($stmt->execute()){
+      $row = $stmt->fetchAll();
+
+      foreach($row as $value){
+        $comment_section = new CommentSection($value['id'], $conn, false);
+
+        $post = new Post($value['title'], $value['author'], $value['body'], $value['id']);
+        $post->setDate($value['date']);
+        $post->setCommentSection($comment_section);
+
+        array_push($arr_posts, $post);
+      }
+    }
+
+    return $arr_posts;
+  }
+
+  //---------------------------------------------------------------------------------------COMMENT SECTION FUNCTIONS
+
+  function html_add_comment($id, $author){
+    echo '
+      <form method="post" action="../controller/add-comment.php?postid=' . $id . '&author=' . $author . '">
+      <div>
+        <label for="comment">Comment</label>
+        <textarea required name="comment" rows="2" cols="40">
+        </textarea>
+      </div>
+      <input type="submit" name="submit-comment" value="Submit" />
+      </form>
+    ';
+  }
+
+  function show_comment($comment) {
+    echo '
+      <div>
+        <h5>' . $comment->getAuthor() . ' commented ' . getTimeBetween($comment->getTime(), date("h:i:s-d:m:y")) . '</h5>
+        <p>'. $comment->getBody() . '</p>
+      </div>
+      <br />
+    ';
+  }
+
+  function show_comment_section($post, $userSESSION) {
+    $comment_section = $post->getCommentSection();
+    $arr_comment = $comment_section->getArrComments();
+
+    html_add_comment($post->getId(), $userSESSION);
+
+    // To show from the latest to the first
+    for($i = $comment_section->getNumberComments() - 1; $i >= 0; $i--){
+      show_comment($arr_comment[$i]);
+    }
+
+    // To show from the first entered to last
+    // foreach($comment_section->getArrComments() as $comment) {
+    //   show_comment($comment);
+    // }
   }

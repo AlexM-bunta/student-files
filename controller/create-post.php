@@ -3,6 +3,7 @@
   include_once '../includes/process_forms.php';
   include_once '../models/database.php';
   include_once '../models/post.php';
+  include_once '../models/comment_section.php';
 
   $database = new Database;
   $conn = $database->connect();
@@ -24,6 +25,12 @@
 
       // Insert into DB
       if ($post->insertIntoDB($conn)){
+
+        // Create comment section and assocciate with the post
+        $comment_section = new CommentSection($post->getId(), $conn);
+        $post->setCommentSection($comment_section);
+
+        // Redirect
         header("Location: ../views/home.php?postCreated=success");
       }
       else {
