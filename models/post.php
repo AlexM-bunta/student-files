@@ -16,6 +16,21 @@
       $this->id = $id;
     }
 
+    public function deleteFromDB($conn){
+      $queryDROP = "DROP TABLE postcomm" . $this->id;
+      $queryDELETEPOST = "DELETE FROM posts WHERE id=" . $this->id;
+
+      $stmtDROP = $conn->prepare($queryDROP);
+      $stmtDELETEPOST = $conn->prepare($queryDELETEPOST);
+
+      if ($stmtDROP->execute() && $stmtDELETEPOST->execute()){
+        return true;
+      }
+
+      printf("Error!\nDROP:%s.\nDELETEPOST:%s", $stmtDROP->error, $stmtDELETEPOST->error);
+      return false;
+    }
+
     public function insertIntoDB($conn){
 
       $this->time = date("h:i:s-d:m:y");
