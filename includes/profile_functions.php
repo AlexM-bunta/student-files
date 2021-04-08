@@ -27,14 +27,17 @@
     return null;
   }
 
-  function show_user($username){
+  function show_user($username, $userSESSION){
 
     $user = get_user($username);
 
     echo '<div class="card">
       <h1>' . $user->getUsername() . '</h1>
       <p class="title">' . $user->getFirstName() . " " . $user->getLastName() . '</p>
-      <p>' . $user->getEmail() . '</p>
-    </div>';
+      <p>' . $user->getEmail() . '</p>';
+      if ($username !== $userSESSION){
+        echo '<button>Message</button>';
+      }
+      echo '</div>';
 
   }
