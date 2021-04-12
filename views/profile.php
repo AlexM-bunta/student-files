@@ -16,9 +16,11 @@
 
   // Show posts of user
   $arr_posts = get_arr_posts();
+  $nr_posts = 0;
   foreach($arr_posts as $post) {
       if (!strcmp($post->getAuthor(), $user)){
         show_post($post, $_SESSION['username']);
+        $nr_posts++;
       }
 
       if (!strcmp($post->getAuthor(), $_SESSION['username'])){
@@ -28,4 +30,7 @@
         </form>
         ';
       }
+  }
+  if (!$nr_posts){
+    echo "<p>This user does not have any posts available.</p>";
   }

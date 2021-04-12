@@ -7,6 +7,8 @@
     private $last_name;
     private $password;
     private $email;
+    // variable that will be used in later versions
+    // private $friends = array();
 
     public function __construct($username, $password, $email, $first_name, $last_name) {
       $this->username = $username;

@@ -20,7 +20,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <link rel="stylesheet" type="text/css" href="./css/misc.css" />
+    <link rel="stylesheet" type="text/css" href="./css/nav.css" />
+    <link rel="stylesheet" type="text/css" href="./css/posts.css" />
+    <link rel="stylesheet" type="text/css" href="./css/profile.css" />
   </head>
 
   <body>
@@ -32,8 +35,9 @@
           if (isset($_SESSION['username'])){
             echo '<li><a href="../views/home.php">Home</a></li>';
             echo '<li><a href="../views/profile.php?username=' . $_SESSION['username'] . '">Profile</a></li>';
+            echo '<li><a href="../views/messages.php">Message</a></li>';
             echo '<li><a href="../controller/logout-contr.php">Log out</a></li>';
-            echo '<li><a href="#about">About</a></li>';
+            // echo '<li><a href="#about">About</a></li>';
           }
           else {
             echo '<li><a href="../views/login.php">Log in</a></li>';

@@ -58,9 +58,9 @@
     $viewuser = ($post->getAuthor() !== $userSESSION) ? '&viewuser=' . $post->getAuthor() : '';
     $time = getTimeBetween($post->getDate(), date("h:i:s-d:m:y"));
 
-    echo '<div>
-      <h3><a href="./view_post.php?id=' . $post->getId() . '">' . $post->getTitle() . '</h3>
-      <p>by <a href="/views/profile.php?username=' . $userSESSION . $viewuser . '">' . $post->getAuthor() . '</a></p>
+    echo '<div class="post-render">
+      <h3><a href="./view_post.php?id=' . $post->getId() . '">' . $post->getTitle() . '</a></h3>
+      <p>by <a href="./profile.php?username=' . $userSESSION . $viewuser . '">' . $post->getAuthor() . '</a></p>
       <p>'.$time.'</p>
       <p>' . $post->getBody() . '</p>
     </div> <br />';

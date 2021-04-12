@@ -16,7 +16,7 @@
     echo '<h1>WELCOME ' . $_SESSION['username'] . '</h1>';
   ?>
 
-  <div class="CreatePost">
+  <div class="create-post">
     <h2>Create post</h2>
     <?php
       echo '<form method="post" action="../controller/create-post.php?username=' . $_SESSION['username'] . '">';
@@ -31,7 +31,7 @@
 
       <div>
         <label for="body">Body</label>
-        <textarea required placeholder="Type something..." name="body" rows="10" cols="40">
+        <textarea required name="body" rows="10" cols="40">
         </textarea>
       </div>
 
