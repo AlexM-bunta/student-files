@@ -48,7 +48,7 @@
     </form>
   </div>
 
-  <div class="CreatePost">
+  <div class="create-post">
 
     <?php
       include_once '../includes/post_functions.php';
