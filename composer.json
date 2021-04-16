@@ -1,0 +1,17 @@
+{
+    "name": "alex/student-files",
+    "description": "Personal web project",
+    "type": "project",
+    "authors": [
+        {
+            "name": "AlexM23",
+            "email": "alexandrumitran23@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+          "app\\": "./"
+        }
+    },
+    "require": {}
+}
