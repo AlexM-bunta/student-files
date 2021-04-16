@@ -24,7 +24,7 @@
 
       if ($callback === false) {
         $this->response->setStatusCode(404);
-        return 'Not found.';
+        return $this->view->renderView('_404');
         exit;
       }
 

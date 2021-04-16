@@ -7,7 +7,7 @@
     public string $layout = 'main';
 
     public function render($view, $params = []) {
-      return Application::$app->router->view->renderView($view, $params);
+      return App::$app->router->view->renderView($view, $params);
     }
 
     public function setLayout($layout) {
