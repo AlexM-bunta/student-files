@@ -14,7 +14,7 @@
 
   echo '<button type="submit" class="btn btn-primary">Submit</button>';
 
-  Form::end()
+  Form::end();
 ?>
 
 <!-- <form method="post" action="">
