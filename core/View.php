@@ -16,7 +16,7 @@
       return str_replace('{{content}}', $viewContent, $layoutContent);
     }
 
-    // Get layout 
+    // Get layout
     protected function layoutContent() {
       $layout = App::$app->controller->layout;
       ob_start();
@@ -28,7 +28,6 @@
       foreach($params as $key => $value) {
         $$key = $value;
       }
-
       ob_start();
       include_once App::$ROOT_DIR."/views/$view.php";
       return ob_get_clean();
